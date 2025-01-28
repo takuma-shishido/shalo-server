@@ -149,6 +149,18 @@ def fetch_resource_by_id(request, id):
                 data['isBookmarked'] = True
             else:
                 data['isBookmarked'] = False
+
+            activity_list = []
+            for activity in CardActivity.objects.filter(card=resource):
+                activity_list.append({
+                    "id": len(activity_list),
+                    "user": activity.user.username,
+                    "type": activity.activityType,
+                    "date": activity.date.strftime('%Y-%m-%d'),
+                })
+
+            data['activity'] = activity_list
+
             
             return Response(data)
         except CardData.DoesNotExist:
@@ -163,6 +175,17 @@ def fetch_resource_by_id(request, id):
 
             data = serializer.data 
             data['isBookmarked'] = False
+
+            activity_list = []
+            for activity in CardActivity.objects.filter(card=resource):
+                activity_list.append({
+                    "id": len(activity_list),
+                    "user": activity.user.username,
+                    "type": activity.activityType,
+                    "date": activity.date.strftime('%Y-%m-%d'),
+                })
+
+            data['activity'] = activity_list
 
             return Response(data)
         except CardData.DoesNotExist:
