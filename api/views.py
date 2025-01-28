@@ -242,7 +242,7 @@ def create_resource(request):
     else:
         get_site_preview(data['url'], f"static/images/{resource_id}.png")
         
-    data['previewImage'] = f'http://localhost:8000/static/images/{resource_id}.png'
+    data['previewImage'] = f'http://shalo-api.vta-group.tech/static/images/{resource_id}.png'
 
     serializer = CardDataSerializer(data=data)
     if serializer.is_valid():
